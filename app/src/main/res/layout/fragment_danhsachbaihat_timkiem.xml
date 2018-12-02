@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:background="@drawable/custom_background_search"
+        android:textColor="#063763"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/textviewsongssearch"
+        android:textSize="15sp"
+        android:text="Songs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+
+        android:layout_below="@id/textviewsongssearch"
+        android:id="@+id/recyclerviewsearchbaihat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_below="@+id/recyclerviewsearchbaihat"
+        android:visibility="gone"
+        android:textColor="#f20"
+        android:gravity="center"
+        android:text="Không có dữ liệu bài hát"
+        android:id="@+id/textviewkhongcodulieu"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

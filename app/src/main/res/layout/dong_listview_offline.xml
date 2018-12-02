@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="5dp"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--Số thứ tự bài hát-->
+    <ImageView
+
+        android:src="@drawable/iconnextpage"
+        android:layout_margin="15dp"
+        android:id="@+id/imageoffline"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <!-- Tên ca khúc -->
+    <TextView
+        android:paddingTop="15dp"
+        android:id="@+id/textviewitemlistviewoffline"
+        android:layout_toRightOf="@id/imageoffline"
+        android:ellipsize="end"
+        android:maxWidth="250dp"
+        android:singleLine="true"
+        android:text="Tên thư mục"
+        android:textColor="#030303"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Tên ca si-->
+    <TextView
+        android:id="@+id/textviewsoluongoffline"
+        android:layout_below="@id/textviewitemlistviewoffline"
+        android:layout_toRightOf="@id/imageoffline"
+        android:ellipsize="end"
+        android:maxWidth="250dp"
+        android:singleLine="true"
+        android:text="Số lượng"
+        android:textColor="#030303"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--Vote-->
+    <ImageView
+        android:src="@drawable/iconnextpage"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/imageviewluotthichdanhsachbaihat"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+</RelativeLayout>

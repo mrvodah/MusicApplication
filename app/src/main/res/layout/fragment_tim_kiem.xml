@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:background="@drawable/custom_background_search"
+        android:id="@+id/appbarlayoutsearchbaihat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarsearchbaihat"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_below="@+id/appbarlayoutsearchbaihat"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:background="#f5dddd"
+                    android:textColor="#063763"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/textviewsongssearch"
+                    android:textSize="15sp"
+                    android:text="Songs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.RecyclerView
+
+                    android:layout_below="@id/textviewsongssearch"
+                    android:id="@+id/recyclerviewsearchbaihat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:visibility="gone"
+                    android:text="Xem thêm"
+                    android:textSize="10sp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@drawable/iconmoreplaylist"
+                    android:paddingLeft="5dp"
+                    android:layout_below="@id/recyclerviewsearchbaihat"
+                    android:id="@+id/textviewmoresongssearch"
+                    android:background="#f5dddd"
+                    android:layout_marginTop="2dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:textColor="#0a0a0a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_below="@+id/recyclerviewsearchbaihat"
+                    android:visibility="gone"
+                    android:textColor="#f20"
+                    android:gravity="center"
+                    android:text="Không có dữ liệu bài hát"
+                    android:id="@+id/textviewkhongcodulieu"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:background="#f5dddd"
+                    android:textColor="#063763"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@+id/textviewkhongcodulieu"
+                    android:id="@+id/textviewalbumsearchbaihat"
+                    android:textSize="15sp"
+                    android:text="Albums"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_below="@id/textviewalbumsearchbaihat"
+                    android:id="@+id/recyclerviewsearchAlbum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:visibility="gone"
+                    android:text="Xem thêm"
+                    android:textSize="10sp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@drawable/iconmoreplaylist"
+                    android:paddingLeft="5dp"
+                    android:layout_below="@id/recyclerviewsearchAlbum"
+                    android:id="@+id/textviewmorealbumsearch"
+                    android:background="#f5dddd"
+                    android:layout_marginTop="2dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:textColor="#0a0a0a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/textviewalbumsearchbaihat"
+                    android:visibility="gone"
+                    android:textColor="#f20"
+                    android:gravity="center"
+                    android:text="Không có dữ Album"
+                    android:id="@+id/textviewkhongcodulieualbum"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:background="#f5dddd"
+                    android:textColor="#063763"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@+id/textviewkhongcodulieualbum"
+                    android:id="@+id/textviewplaylistsearch"
+                    android:textSize="15sp"
+                    android:text="Playlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_below="@id/textviewplaylistsearch"
+                    android:id="@+id/recyclerviewsearchPlaylist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:visibility="gone"
+                    android:text="Xem thêm"
+                    android:textSize="10sp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@drawable/iconmoreplaylist"
+                    android:paddingLeft="5dp"
+                    android:layout_below="@id/recyclerviewsearchPlaylist"
+                    android:id="@+id/textviewmoreplaylistsearch"
+                    android:background="#f5dddd"
+                    android:layout_marginTop="2dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:textColor="#0a0a0a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/recyclerviewsearchPlaylist"
+                    android:visibility="gone"
+                    android:textColor="#f20"
+                    android:gravity="center"
+                    android:text="Không có dữ liệu Playlist"
+                    android:id="@+id/textviewkhongcodulieuPlaylist"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
