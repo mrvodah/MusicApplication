@@ -414,7 +414,6 @@ public class PlayNhacActivity extends AppCompatActivity {
 
         fragment_dia_nhac= (Fragment_Dia_Nhac) adapternhac.getItem(1);
 
-
         if(mangbaihat.size()>0)
         {
             // Tên bài hát

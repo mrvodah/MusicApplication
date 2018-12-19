@@ -20,7 +20,11 @@ private String tenCaSiAlbum;
 @Expose
 private String hinhAlbum;
 
-public String getIdAlbum() {
+    public Album(String tenAblum) {
+        this.tenAblum = tenAblum;
+    }
+
+    public String getIdAlbum() {
 return idAlbum;
 }
 

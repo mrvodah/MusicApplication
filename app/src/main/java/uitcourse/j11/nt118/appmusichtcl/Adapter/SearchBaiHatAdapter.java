@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import uitcourse.j11.nt118.appmusichtcl.Activity.PlayMusicActivity;
 import uitcourse.j11.nt118.appmusichtcl.Activity.PlayNhacActivity;
 import uitcourse.j11.nt118.appmusichtcl.Model.Baihat;
 import uitcourse.j11.nt118.appmusichtcl.R;
@@ -48,10 +49,6 @@ public class SearchBaiHatAdapter extends RecyclerView.Adapter<SearchBaiHatAdapte
         holder.txtCasi.setText(baihat.getCaSi());
         Picasso.with(context).load(baihat.getHinhBaiHat()).into(holder.imgbaihat);
 
-
-
-
-
     }
 
     @Override
@@ -75,8 +72,9 @@ public class SearchBaiHatAdapter extends RecyclerView.Adapter<SearchBaiHatAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,PlayNhacActivity.class);
-                    intent.putExtra("cakhuc",mangbaihat.get(getPosition()));
+                    Intent intent = new Intent(context, PlayMusicActivity.class);
+                    intent.putExtra("position", getAdapterPosition());
+                    intent.putExtra("cacbaihat", mangbaihat);
                     context.startActivity(intent);
                 }
             });

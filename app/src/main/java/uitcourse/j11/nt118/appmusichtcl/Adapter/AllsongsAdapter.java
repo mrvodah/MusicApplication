@@ -13,10 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uitcourse.j11.nt118.appmusichtcl.Activity.PlayMusicActivity;
 import uitcourse.j11.nt118.appmusichtcl.Activity.PlayNhacActivity;
 import uitcourse.j11.nt118.appmusichtcl.Model.Album;
 import uitcourse.j11.nt118.appmusichtcl.Model.Baihat;
@@ -40,29 +42,14 @@ public class AllsongsAdapter extends RecyclerView.Adapter<AllsongsAdapter.ViewHo
 
         TextView txtindex, txtcasi,txttenbaihat;
 
-
         public ViewHolder(View itemView) {
             super(itemView);
             txtcasi = itemView.findViewById(R.id.textviewtencasioffline);
             txttenbaihat = itemView.findViewById(R.id.textviewtenbaihatoffline);
             txtindex = itemView.findViewById(R.id.textviewdanhsachindexoffline);
 
-
-            // Chuyen du lieu bai hat sang man hinh playnhacActivity
-            /*itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, PlayNhacActivity.class);
-                    intent.putExtra("cakhuclocal", mangbaihat.get(getPosition()));
-                    context.startActivity(intent);
-                }
-            });*/
-
         }
     }
-
-
-
 
     @NonNull
     @Override
@@ -73,13 +60,23 @@ public class AllsongsAdapter extends RecyclerView.Adapter<AllsongsAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AllsongsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AllsongsAdapter.ViewHolder holder, final int position) {
 
         AudioModel baihat = mangbaihat.get(position);
         Log.d("TTTTTT",baihat.getName());
         holder.txtindex.setText(position+1+"");
         holder.txttenbaihat.setText(baihat.getName());
         holder.txtcasi.setText(baihat.getArtist());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PlayMusicActivity.class);
+                intent.putExtra("position", position);
+                intent.putExtra("cacbaihatoffline", mangbaihat);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

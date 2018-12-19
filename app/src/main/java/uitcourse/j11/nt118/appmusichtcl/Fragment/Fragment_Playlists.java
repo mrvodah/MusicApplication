@@ -65,6 +65,7 @@ public class Fragment_Playlists extends Fragment {
         createAddDialog();
     }
 
+    // Tạo playlist
     private void createAddDialog() {
         final EditText edittext = new EditText(getContext());
         final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());

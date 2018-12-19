@@ -13,7 +13,7 @@ import uitcourse.j11.nt118.appmusichtcl.R;
 public class Fragment_Trang_Chu extends Fragment {
 
     View view;
-    @Nullable
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_trang_chu,container,false);

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uitcourse.j11.nt118.appmusichtcl.Activity.PlayMusicActivity;
 import uitcourse.j11.nt118.appmusichtcl.Activity.PlayNhacActivity;
 import uitcourse.j11.nt118.appmusichtcl.Model.Baihat;
 import uitcourse.j11.nt118.appmusichtcl.R;
@@ -77,13 +78,12 @@ public class BaihathotAdapter extends RecyclerView.Adapter<BaihathotAdapter.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, PlayNhacActivity.class);
-                    intent.putExtra("cakhuc", baihatArrayList.get(getPosition()));
+                    Intent intent = new Intent(context, PlayMusicActivity.class);
+                    intent.putExtra("position", getAdapterPosition());
+                    intent.putExtra("cacbaihat", baihatArrayList);
                     context.startActivity(intent);
                 }
             });
-
-
 
             imgluothich.setOnClickListener(new View.OnClickListener() {
                 @Override

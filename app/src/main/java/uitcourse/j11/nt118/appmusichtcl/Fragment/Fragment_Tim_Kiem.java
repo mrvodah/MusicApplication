@@ -61,7 +61,6 @@ public class Fragment_Tim_Kiem extends Fragment {
         txtmorealbumsearch = view.findViewById(R.id.textviewmorealbumsearch);
         txtmoreplaylistsearch = view.findViewById(R.id.textviewmoreplaylistsearch);
 
-
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         toolbar.setTitle("");
@@ -108,7 +107,7 @@ public class Fragment_Tim_Kiem extends Fragment {
                 if(mangalbum.size()>0)
                 {
                     Log.d("Testmangalbum",String.valueOf(mangalbum.size()));
-                    searchAlbumAdapter = new SearchAlbumAdapter(getActivity(),mangalbum);
+                    searchAlbumAdapter = new SearchAlbumAdapter(getActivity(),mangalbum, false);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerViewsearchalbum.setLayoutManager(linearLayoutManager);
                     recyclerViewsearchalbum.setAdapter(searchAlbumAdapter);
@@ -190,7 +189,7 @@ public class Fragment_Tim_Kiem extends Fragment {
                 if(mangplaylist.size()>0)
                 {
                     Log.d("Testmangplaylist",String.valueOf(mangplaylist.size()));
-                    searchPlaylistAdapter = new SearchPlaylistAdapter(getActivity(),mangplaylist);
+                    searchPlaylistAdapter = new SearchPlaylistAdapter(getActivity(),mangplaylist, false);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerViewsearchplaylist.setLayoutManager(linearLayoutManager);
                     recyclerViewsearchplaylist.setAdapter(searchPlaylistAdapter);

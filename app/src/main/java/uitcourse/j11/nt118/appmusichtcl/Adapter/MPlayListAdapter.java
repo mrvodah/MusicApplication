@@ -44,7 +44,7 @@ public class MPlayListAdapter extends RecyclerView.Adapter<MPlayListAdapter.View
         final MPlayList item = items.get(position);
         //TODO Fill in your logic for binding the view.
 
-        holder.mName.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+        holder.mName.setTextSize(TypedValue.COMPLEX_UNIT_SP,24);
         holder.mName.setText(item.getName());
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {

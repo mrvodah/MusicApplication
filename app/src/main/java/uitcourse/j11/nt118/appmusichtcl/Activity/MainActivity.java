@@ -1,18 +1,31 @@
 package uitcourse.j11.nt118.appmusichtcl.Activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import uitcourse.j11.nt118.appmusichtcl.Adapter.MainViewPagerAdapter;
+import uitcourse.j11.nt118.appmusichtcl.Database.Constant;
 import uitcourse.j11.nt118.appmusichtcl.Fragment.Fragment_Offline;
+import uitcourse.j11.nt118.appmusichtcl.Fragment.Fragment_Search;
 import uitcourse.j11.nt118.appmusichtcl.Fragment.Fragment_Tim_Kiem;
 import uitcourse.j11.nt118.appmusichtcl.Fragment.Fragment_Trang_Chu;
+import uitcourse.j11.nt118.appmusichtcl.Model.Album;
+import uitcourse.j11.nt118.appmusichtcl.Offline.AudioModel;
 import uitcourse.j11.nt118.appmusichtcl.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,25 +63,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void init()
     {
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mainViewPagerAdapter.addFragment(new Fragment_Offline(),"Offline");
+        mainViewPagerAdapter.addFragment(new Fragment_Search(),"Tìm kiếm Offline");
         mainViewPagerAdapter.addFragment(new Fragment_Trang_Chu(),"Trang Chủ");
         mainViewPagerAdapter.addFragment(new Fragment_Tim_Kiem(),"Tìm Kiếm");
 
         viewPager.setAdapter(mainViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.iconmusicoffline);
-        tabLayout.getTabAt(1).setIcon(R.drawable.icontrangchu);
-        tabLayout.getTabAt(2).setIcon(R.drawable.iconsearch);
-
+        tabLayout.getTabAt(1).setIcon(R.drawable.iconsearch);
+        tabLayout.getTabAt(2).setIcon(R.drawable.icontrangchu);
+        tabLayout.getTabAt(3).setIcon(R.drawable.iconsearch);
 
     }
 
-    private void anhxa()
-    {
+    private void anhxa() {
         tabLayout = findViewById(R.id.myTabLayout);
         viewPager = findViewById(R.id.myViewPaper);
     }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uitcourse.j11.nt118.appmusichtcl.Activity.PlayMusicActivity;
 import uitcourse.j11.nt118.appmusichtcl.Activity.PlayNhacActivity;
 import uitcourse.j11.nt118.appmusichtcl.Model.Baihat;
 import uitcourse.j11.nt118.appmusichtcl.R;
@@ -26,7 +27,6 @@ public class DanhsachbaihatAdapter extends RecyclerView.Adapter<DanhsachbaihatAd
 
     Context context;
     ArrayList<Baihat> mangbaihat;
-
 
     public DanhsachbaihatAdapter(Context context, ArrayList<Baihat> mangbaihat) {
         this.context = context;
@@ -104,8 +104,9 @@ public class DanhsachbaihatAdapter extends RecyclerView.Adapter<DanhsachbaihatAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, PlayNhacActivity.class);
-                    intent.putExtra("cakhuc", mangbaihat.get(getPosition()));
+                    Intent intent = new Intent(context, PlayMusicActivity.class);
+                    intent.putExtra("position", getAdapterPosition());
+                    intent.putExtra("cacbaihat", mangbaihat);
                     context.startActivity(intent);
                 }
             });

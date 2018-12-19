@@ -23,11 +23,15 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import uitcourse.j11.nt118.appmusichtcl.Activity.OfflineActivity;
 import uitcourse.j11.nt118.appmusichtcl.Adapter.ListviewthumucofflineAdapter;
+import uitcourse.j11.nt118.appmusichtcl.Database.Constant;
 import uitcourse.j11.nt118.appmusichtcl.Database.DBUtil;
+import uitcourse.j11.nt118.appmusichtcl.Model.Album;
 import uitcourse.j11.nt118.appmusichtcl.Offline.AudioModel;
 import uitcourse.j11.nt118.appmusichtcl.Offline.ItemFolder;
 import uitcourse.j11.nt118.appmusichtcl.R;
@@ -41,7 +45,6 @@ public class Fragment_Offline extends Fragment {
     ListviewthumucofflineAdapter listviewthumucofflineAdapter;
     ArrayList<ItemFolder> arrayListtenthumuc;
     ArrayList<AudioModel> listaudiofromdevice;
-
 
     @Nullable
     @Override
@@ -74,7 +77,6 @@ public class Fragment_Offline extends Fragment {
 
         arrayListtenthumuc.add(new ItemFolder(R.drawable.iconallsong,"All songs",listaudiofromdevice.size()));
         arrayListtenthumuc.add(new ItemFolder(R.drawable.iconplaylist,"Playlists", DBUtil.getCountPlayList(getContext())));
-        //arrayListtenthumuc.add(new ItemFolder(R.drawable.icondownloadforder,"Downloads",0));
         arrayListtenthumuc.add(new ItemFolder(R.drawable.iconartistoffline,"Artists",listWithoutDuplicateArtist.size()));
         arrayListtenthumuc.add(new ItemFolder(R.drawable.iconalbumoffline,"Albums",listWithoutDuplicateElements.size()));
         listviewthumucofflineAdapter = new ListviewthumucofflineAdapter(getActivity(),arrayListtenthumuc);
@@ -82,7 +84,6 @@ public class Fragment_Offline extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Log.d("Test Intent",String.valueOf(position));
 
                 Intent intent = new Intent(getActivity(), OfflineActivity.class);
                 intent.putExtra("vitri",position);
@@ -96,10 +97,17 @@ public class Fragment_Offline extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: " + DBUtil.getCountPlayList(getContext()));
         arrayListtenthumuc.remove(1);
         arrayListtenthumuc.add(1, new ItemFolder(R.drawable.iconplaylist,"Playlists", DBUtil.getCountPlayList(getContext())));
         listviewthumucofflineAdapter.notifyDataSetChanged();
-        Log.d(TAG, "onResume: " + DBUtil.getCountPlayList(getContext()));
+
+        listaudiofromdevice.clear();
+        listaudiofromdevice.addAll(getAllAudioFromDevice(getContext()));
+        arrayListtenthumuc.remove(0);
+        arrayListtenthumuc.add(0, new ItemFolder(R.drawable.iconallsong,"All songs", listaudiofromdevice.size()));
+
+        listviewthumucofflineAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -108,7 +116,18 @@ public class Fragment_Offline extends Fragment {
      * */
 
     public ArrayList<AudioModel> getAllAudioFromDevice(final Context context) {
-
+        if(Constant.audios != null || Constant.audios.size() > 0){
+            Constant.audios = new ArrayList<>();
+            Constant.audios.clear();
+        }
+        if(Constant.mNameArtists != null || Constant.mNameArtists.size() > 0){
+            Constant.mNameArtists = new ArrayList<>();
+            Constant.mNameArtists.clear();
+        }
+        if(Constant.mNameAlbums != null || Constant.mNameAlbums.size() > 0){
+            Constant.mNameAlbums = new ArrayList<>();
+            Constant.mNameAlbums.clear();
+        }
         final ArrayList<AudioModel> tempAudioList = new ArrayList<>();
 
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -133,19 +152,46 @@ public class Fragment_Offline extends Fragment {
                 audioModel.setAlbum(album);
                 audioModel.setArtist(artist);
                 audioModel.setPath(path);
+                String[] names = name.split("\\.");
+                audioModel.setLast(names[0]);
+
+                Log.e("Name :" + name, " Album :" + album);
+                Log.e("Path :" + path, " Artist :" + artist);
+                Constant.mNameAlbums.add(album);
+                Constant.mNameArtists.add(artist);
 
                 Log.e("Name :" + name, " Album :" + album);
                 Log.e("Path :" + path, " Artist :" + artist);
 
+                Constant.audios.add(audioModel);
                 tempAudioList.add(audioModel);
             }
+
+            prepareAlbums();
+            prepareArtist();
             c.close();
         }
 
         return tempAudioList;
     }
 
+    private void prepareArtist() {
+        Set<String> hs = new HashSet<>();
+        hs.addAll(Constant.mNameArtists);
+        Constant.mNameArtists.clear();
+        Constant.mNameArtists.addAll(hs);
+    }
 
+    private void prepareAlbums() {
+        Set<String> hs = new HashSet<>();
+        hs.addAll(Constant.mNameAlbums);
+        Constant.mNameAlbums.clear();
+        Constant.mNameAlbums.addAll(hs);
+        for (String mNameAlbum : Constant.mNameAlbums) {
+            Constant.albums.add(new Album(mNameAlbum));
+        }
+
+    }
 
 
 

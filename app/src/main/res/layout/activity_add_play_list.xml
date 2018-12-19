@@ -24,16 +24,33 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <TextView
+        android:text="Phát hết tất cả"
+        android:textSize="15sp"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/iconphthettatcar"
+        android:paddingLeft="5dp"
         android:layout_below="@id/appbarlayout"
+        android:id="@+id/textviewphathettatcaoffline"
+        android:background="#f5dddd"
+        android:layout_marginTop="2dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="2dp"
+        android:textColor="#0a0a0a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/textviewphathettatcaoffline"
         android:id="@+id/rcv_playlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         android:src="@drawable/ic_add_white_24dp"
-        android:background="@color/colorAccent"
+        android:backgroundTint="@color/colorAccent"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"

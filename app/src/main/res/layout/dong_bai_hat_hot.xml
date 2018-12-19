@@ -38,7 +38,6 @@
         android:layout_height="wrap_content" />
     
     <ImageView
-
         android:visibility="gone"
         android:layout_marginRight="10dp"
         android:src="@drawable/iconlove"

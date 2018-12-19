@@ -14,8 +14,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import uitcourse.j11.nt118.appmusichtcl.Activity.AddPlayListActivity;
 import uitcourse.j11.nt118.appmusichtcl.Activity.DanhsachbaihatActivity;
 import uitcourse.j11.nt118.appmusichtcl.Activity.PlayNhacActivity;
+import uitcourse.j11.nt118.appmusichtcl.Database.models.MPlayList;
 import uitcourse.j11.nt118.appmusichtcl.Model.Album;
 import uitcourse.j11.nt118.appmusichtcl.Model.Baihat;
 import uitcourse.j11.nt118.appmusichtcl.Model.Playlist;
@@ -25,10 +27,12 @@ public class SearchPlaylistAdapter extends RecyclerView.Adapter<SearchPlaylistAd
 
     Context context;
     ArrayList<Playlist> mangplaylist;
+    boolean isOffline;
 
-    public SearchPlaylistAdapter(Context context, ArrayList<Playlist> mangplayplist) {
+    public SearchPlaylistAdapter(Context context, ArrayList<Playlist> mangplayplist, boolean isOffline) {
         this.context = context;
         this.mangplaylist = mangplayplist;
+        this.isOffline = isOffline;
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -53,9 +57,19 @@ public class SearchPlaylistAdapter extends RecyclerView.Adapter<SearchPlaylistAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,DanhsachbaihatActivity.class);
-                    intent.putExtra("itemplaylist",mangplaylist.get(getPosition()));
-                    context.startActivity(intent);
+                    if(isOffline){
+
+                        Playlist playlist = mangplaylist.get(getAdapterPosition());
+                        Intent intent = new Intent(context, AddPlayListActivity.class);
+                        intent.putExtra("playlist", new MPlayList(Integer.valueOf(playlist.getIdplaylist()), playlist.getTen()));
+                        context.startActivity(intent);
+                    }
+                    else{
+
+                        Intent intent = new Intent(context,DanhsachbaihatActivity.class);
+                        intent.putExtra("itemplaylist",mangplaylist.get(getAdapterPosition()));
+                        context.startActivity(intent);
+                    }
                 }
             });
 

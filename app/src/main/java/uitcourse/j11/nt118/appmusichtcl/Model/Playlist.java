@@ -20,7 +20,12 @@ private String hinhPlaylist;
 @Expose
 private String icon;
 
-public String getIdplaylist() {
+    public Playlist(String idplaylist, String ten) {
+        this.idplaylist = idplaylist;
+        this.ten = ten;
+    }
+
+    public String getIdplaylist() {
 return idplaylist;
 }
 

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import uitcourse.j11.nt118.appmusichtcl.Activity.DanhsachbaihatActivity;
 import uitcourse.j11.nt118.appmusichtcl.Activity.PlayNhacActivity;
+import uitcourse.j11.nt118.appmusichtcl.Database.Constant;
 import uitcourse.j11.nt118.appmusichtcl.Model.Album;
 import uitcourse.j11.nt118.appmusichtcl.Model.Baihat;
 import uitcourse.j11.nt118.appmusichtcl.R;
@@ -24,10 +25,12 @@ public class SearchAlbumAdapter extends RecyclerView.Adapter<SearchAlbumAdapter.
 
     Context context;
     ArrayList<Album> mangalbum;
+    boolean isOffline;
 
-    public SearchAlbumAdapter(Context context, ArrayList<Album> mangalbum) {
+    public SearchAlbumAdapter(Context context, ArrayList<Album> mangalbum, boolean isOffline) {
         this.context = context;
         this.mangalbum = mangalbum;
+        this.isOffline = isOffline;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -40,32 +43,19 @@ public class SearchAlbumAdapter extends RecyclerView.Adapter<SearchAlbumAdapter.
             txtTenalbum = itemView.findViewById(R.id.textviewsearchtenalbum);
             txtCasi = itemView.findViewById(R.id.textviewsearchtencasi);
             imgalbum = itemView.findViewById(R.id.imagviewSearchalbum);
-            //imgluotthich = itemView.findViewById(R.id.imageviewSearchluotthich);
 
-            // Bắt sự kiện mỗi item
-            /*itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context,PlayNhacActivity.class);
-                    intent.putExtra("cakhuc",mangbaihat.get(getPosition()));
-                    context.startActivity(intent);
-                }
-            });*/
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,DanhsachbaihatActivity.class);
-                    intent.putExtra("album",mangalbum.get(getPosition()));
+                    Intent intent = new Intent(context, DanhsachbaihatActivity.class);
+                    intent.putExtra("name", mangalbum.get(getAdapterPosition()).getTenAblum());
+                    intent.putExtra("album", mangalbum.get(getAdapterPosition()));
                     context.startActivity(intent);
                 }
             });
 
         }
     }
-
-
-
-
 
     @NonNull
     @Override

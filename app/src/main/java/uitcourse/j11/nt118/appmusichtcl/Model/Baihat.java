@@ -27,6 +27,15 @@ private String linkBaiHat;
 @Expose
 private String soLuotThich;
 
+    public Baihat() {
+    }
+
+    public Baihat(String tenBaiHat, String caSi, String linkBaiHat) {
+        this.tenBaiHat = tenBaiHat;
+        this.caSi = caSi;
+        this.linkBaiHat = linkBaiHat;
+    }
+
     protected Baihat(Parcel in) {
         idBaiHat = in.readString();
         tenBaiHat = in.readString();

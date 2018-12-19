@@ -60,7 +60,8 @@ public class DBUtil {
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
         List<MPlayList> list = new ArrayList<>();
-        Cursor cursor = database.query(DatabaseHelper.PLAYLIST_TABLE, null, null,null,null,null,null);
+        Cursor cursor = database.query(DatabaseHelper.PLAYLIST_TABLE, null,
+                null,null,null,null,null);
 
         while (cursor.moveToNext()){
             list.add(new MPlayList(cursor.getInt(0),
@@ -74,13 +75,14 @@ public class DBUtil {
 
     // AddPlayList
 
-    public static boolean isExistsFavou(Context context, String path){
+    public static boolean isExistsFavou(Context context, String last, int id){
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
         boolean isFav;
         Cursor cursor = database.query(DatabaseHelper.FAVOU_TABLE, null,
-                DatabaseHelper.FAVOU_PATH + " = " + path, null, null, null, null);
+                DatabaseHelper.FAVOU_LAST + " = '" + last + "' AND " + DatabaseHelper.FAVOU_RELATE_ID + " = " + id, null,
+                null, null, null);
         if(cursor.getCount() == 1)
             isFav = true;
         else
@@ -97,18 +99,45 @@ public class DBUtil {
 
         ContentValues values = new ContentValues();
         for (Integer position : positions) {
-            if(!isExistsFavou(context, listMusic.get(position).getPath())){
+            if(!isExistsFavou(context, listMusic.get(position).getLast(), id)){
                 AudioModel audioModel = listMusic.get(position);
                 values.put(DatabaseHelper.FAVOU_NAME, audioModel.getName());
                 values.put(DatabaseHelper.FAVOU_PATH, audioModel.getPath());
                 values.put(DatabaseHelper.FAVOU_ARTIST, audioModel.getArtist());
                 values.put(DatabaseHelper.FAVOU_RELATE_ID, id);
+                values.put(DatabaseHelper.FAVOU_LAST, audioModel.getLast());
 
                 database.insert(DatabaseHelper.FAVOU_TABLE, null, values);
             }
         }
 
         database.close();
+    }
+
+    public static ArrayList<AudioModel> get(Context context, int id){
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        ArrayList<AudioModel> list = new ArrayList<>();
+        Cursor cursor = database.query(DatabaseHelper.FAVOU_TABLE, null,
+                DatabaseHelper.FAVOU_RELATE_ID + " = " + id,null,null,null,null);
+        if(cursor.getCount() == 0){
+
+            cursor.close();
+            database.close();
+            return list;
+        }
+        while (cursor.moveToNext()){
+            list.add(new AudioModel(cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4)));
+        }
+
+        cursor.close();
+        database.close();
+        return list;
     }
 
 }

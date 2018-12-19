@@ -33,11 +33,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uitcourse.j11.nt118.appmusichtcl.Adapter.DanhsachbaihatAdapter;
+import uitcourse.j11.nt118.appmusichtcl.Database.Constant;
 import uitcourse.j11.nt118.appmusichtcl.Model.Album;
 import uitcourse.j11.nt118.appmusichtcl.Model.Baihat;
 import uitcourse.j11.nt118.appmusichtcl.Model.Playlist;
 import uitcourse.j11.nt118.appmusichtcl.Model.Quangcao;
 import uitcourse.j11.nt118.appmusichtcl.Model.TheLoai;
+import uitcourse.j11.nt118.appmusichtcl.Offline.AudioModel;
 import uitcourse.j11.nt118.appmusichtcl.R;
 import uitcourse.j11.nt118.appmusichtcl.Service.APIService;
 import uitcourse.j11.nt118.appmusichtcl.Service.Dataservice;
@@ -56,35 +58,59 @@ public class DanhsachbaihatActivity extends AppCompatActivity {
     Playlist playlist;
     TheLoai theLoai;
     Album album;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danhsachbaihat);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        DataIntent();
-        Anhxa();
-        init();
-        if(quangcao != null && !quangcao.getTenBaiHat().equals("")){
-            setValueInView(quangcao.getTenBaiHat(), quangcao.getHinhBaiHat());
-            getDataQuangCao(quangcao.getIdQuangCao());
-        }
 
-        if(playlist != null && !playlist.getTen().equals(""))
-        {
-            setValueInView(playlist.getTen(),playlist.getHinhPlaylist());
-            GetDataPlayList(playlist.getIdplaylist());
+        name = getIntent().getStringExtra("name");
+        if(name != null){
+            Anhxa();
+            init();
+
+            mangbaihat = new ArrayList<>();
+            if(Constant.audioOffline != null && Constant.audioOffline.size() > 0)
+                Constant.audioOffline.clear();
+            for (AudioModel audio : Constant.audios) {
+                if(audio.getAlbum().equals(name)){
+                    mangbaihat.add(new Baihat(audio.getName(), audio.getArtist(), audio.getPath()));
+                    Constant.audioOffline.add(new Baihat(audio.getName(), audio.getArtist(), audio.getPath()));
+                }
+            }
+            danhsachbaihatAdapter = new DanhsachbaihatAdapter(DanhsachbaihatActivity.this,mangbaihat);
+            recyclerViewdanhsachbaihat.setLayoutManager(new LinearLayoutManager(DanhsachbaihatActivity.this));
+            recyclerViewdanhsachbaihat.setAdapter(danhsachbaihatAdapter);
+            eventClick();
         }
-        if(theLoai != null && !theLoai.getTenTheLoai().equals(""))
-        {
-            setValueInView(theLoai.getTenTheLoai(), theLoai.getHinhTheLoai());
-            GetDataTheLoai(theLoai.getIdTheLoai());
-        }
-        if(album != null && !album.getTenAblum().equals(""))
-        {
-            setValueInView(album.getTenAblum(), album.getHinhAlbum());
-            GetDataAlbum(album.getIdAlbum());
+        else{
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            DataIntent();
+            Anhxa();
+            init();
+            if(quangcao != null && !quangcao.getTenBaiHat().equals("")){
+                setValueInView(quangcao.getTenBaiHat(), quangcao.getHinhBaiHat());
+                getDataQuangCao(quangcao.getIdQuangCao());
+            }
+
+            if(playlist != null && !playlist.getTen().equals(""))
+            {
+                setValueInView(playlist.getTen(),playlist.getHinhPlaylist());
+                GetDataPlayList(playlist.getIdplaylist());
+            }
+            if(theLoai != null && !theLoai.getTenTheLoai().equals(""))
+            {
+                setValueInView(theLoai.getTenTheLoai(), theLoai.getHinhTheLoai());
+                GetDataTheLoai(theLoai.getIdTheLoai());
+            }
+            if(album != null && !album.getTenAblum().equals(""))
+            {
+                setValueInView(album.getTenAblum(), album.getHinhAlbum());
+                GetDataAlbum(album.getIdAlbum());
+            }
         }
 
     }
@@ -270,14 +296,13 @@ public class DanhsachbaihatActivity extends AppCompatActivity {
         }
     }
 
-
     private void eventClick(){
         floatingActionButton.setEnabled(true);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DanhsachbaihatActivity.this, PlayNhacActivity.class);
+                Intent intent = new Intent(DanhsachbaihatActivity.this, PlayMusicActivity.class);
                 intent.putExtra("cacbaihat", mangbaihat);
                 startActivity(intent);
             }
